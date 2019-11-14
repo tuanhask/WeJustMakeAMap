@@ -7,6 +7,8 @@
     <title>We Just Make A Map</title>
     <link rel="stylesheet" href="style.css">
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
 </head>
 <body>
@@ -18,22 +20,26 @@
 
     <div class="map-wrapper">
     <div id='map'></div>
+    <div id = 'place'>
+        <img class = "placeicon" id = "preview-image" src="https://map.fimo.com.vn/assets/images/no_street.png" alt="">
+        <a href="#" class = "placename" id = "placename"></a><br>
+        <button id = "placeclose">X</button>
+    </div>
     </div>
     
     <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoiaGlldW10MjE5OCIsImEiOiJjazJiYXZvMnQwMXNsM2RvMmxhenB2czFnIn0.KB9F598mZYRxomAFtbzVjA';
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'https://api.maptiler.com/maps/basic/style.json?key=bmqAyb1mby1qxT0t9EJa'
-    });
-    map.addControl(new MapboxDirections({
-        accessToken: mapboxgl.accessToken
-    }), 'top-right');
-    map.addControl(new mapboxgl.ScaleControl(), 'bottom-left');
-    map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
-   
+        mapboxgl.accessToken = 'pk.eyJ1IjoiaGlldW10MjE5OCIsImEiOiJjazJiYXZvMnQwMXNsM2RvMmxhenB2czFnIn0.KB9F598mZYRxomAFtbzVjA';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'https://api.maptiler.com/maps/basic/style.json?key=bmqAyb1mby1qxT0t9EJa'
+        });
+        map.addControl(new MapboxDirections({
+            accessToken: mapboxgl.accessToken
+        }), 'top-right');
+        map.addControl(new mapboxgl.ScaleControl(), 'bottom-left');
+        map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
     </script>
     <script src="search.js"></script>
-    <script src="revert.js"></script>
+    <script src="reverse.js"></script>
 </body>
 </html>
