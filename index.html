@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>We Just Make A Map</title>
+    <link rel="stylesheet" href="style.css">
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
 </head>
 <body>
-    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.min.js'></script>
-    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.4.2/mapbox-gl-geocoder.css' type='text/css' />
-    <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+    <script src="pelias-geocoder.js"></script>
+    <link rel="stylesheet" href="pelias-geocoder.css">
     <!-- Routing Mapbox use OSRM -->
     <script src="routing.js"></script>
     <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.css' type='text/css' />
 
-    <div id='map' style='width: 100%; height: 500px;'></div>
+    <div class="map-wrapper">
+    <div id='map'></div>
+    </div>
     
     <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoiaGlldW10MjE5OCIsImEiOiJjazJiYXZvMnQwMXNsM2RvMmxhenB2czFnIn0.KB9F598mZYRxomAFtbzVjA';
@@ -28,7 +28,10 @@
     });
     map.addControl(new MapboxDirections({
         accessToken: mapboxgl.accessToken
-    }), 'top-left');
+    }), 'top-right');
+    map.addControl(new mapboxgl.ScaleControl(), 'bottom-left');
+    map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
+   
     </script>
     <script src="search.js"></script>
     <script src="revert.js"></script>
