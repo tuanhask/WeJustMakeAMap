@@ -14,7 +14,10 @@
     <!-- Promise polyfill script required to use Mapbox GL Geocoder in IE 11 -->
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
-    
+    <!-- Routing Mapbox use OSRM -->
+    <script src="routing.js"></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.css' type='text/css' />
+
     <div id='map' style='width: 100%; height: 500px;'></div>
     
     <script>
@@ -23,9 +26,11 @@
         container: 'map',
         style: 'https://api.maptiler.com/maps/basic/style.json?key=bmqAyb1mby1qxT0t9EJa'
     });
+    map.addControl(new MapboxDirections({
+        accessToken: mapboxgl.accessToken
+    }), 'top-left');
     </script>
     <script src="search.js"></script>
     <script src="revert.js"></script>
-    <script src="routing.js"></script>
 </body>
 </html>
