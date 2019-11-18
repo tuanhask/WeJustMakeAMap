@@ -54,8 +54,16 @@
             zoom: 7
         });
         var directionsControl = new MapboxDirections({
-            accessToken: mapboxgl.accessToken
+            accessToken: mapboxgl.accessToken,
+            searchListener: searchListener
         });
+
+        function searchListener() {
+            map.addControl(geocoder, 'top-left');
+            map.removeControl(directionsControl);
+            isRouting = false;
+        }
+
         map.addControl(new mapboxgl.ScaleControl(), 'bottom-left');
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
         document.getElementById('detail-feature').style.display = "none";

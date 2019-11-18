@@ -7288,6 +7288,7 @@ var MapboxDirections = function () {
     this.onDragUp = this._onDragUp.bind(this);
     this.move = this._move.bind(this);
     this.onClick = this._clickHandler().bind(this);
+    this._searchListener = options.searchListener;
   }
 
   _createClass(MapboxDirections, [{
@@ -7303,6 +7304,13 @@ var MapboxDirections = function () {
       var el = this.container = document.createElement('div');
       el.className = 'mapboxgl-ctrl-directions mapboxgl-ctrl';
 
+      // Add search button
+      var searchEl = document.createElement('button');
+      searchEl.className = 'search-button';
+      searchEl.addEventListener("click", function () {
+        _this._searchListener();
+      });
+
       // Add controls to the page
       var inputEl = document.createElement('div');
       inputEl.className = 'directions-control directions-control-inputs';
@@ -7316,6 +7324,7 @@ var MapboxDirections = function () {
         setRouteIndex: this.actions.setRouteIndex
       }, this._map);
 
+      el.appendChild(searchEl);
       if (controls.inputs) el.appendChild(inputEl);
       if (controls.instructions) el.appendChild(directionsEl);
 
