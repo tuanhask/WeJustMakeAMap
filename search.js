@@ -12,16 +12,33 @@ var geocoder = new PeliasGeocoder({
   marker: {
     icon: iconMarkerEl,
     multiple: false
-  }
+  },
+  directionsListener : directionsListener
 });
 map.addControl(geocoder);
+
+function directionsListener() {
+  if(marker != undefined) {
+    marker.remove();
+  }
+  map.addControl(directionsControl, 'top-left');
+  map.removeControl(geocoder);
+  isRouting = true;
+}
 
 document.getElementById('close-detail-button').onclick = function(e) {
   document.getElementById('detail-feature').style.display = "none";
 };
 
+function addMarker(feature) {
+  if(marker != undefined) {
+    marker.remove();
+  }
+  marker = new mapboxgl.Marker(iconMarkerEl).setLngLat([feature.geometry.coordinates[0], feature.geometry.coordinates[1]]).addTo(map);
+}
+
 function showDetailFeature(feature) {
-  console.log(feature);
+  addMarker(feature);
   document.getElementById('detail-feature').style.display = "block";
   let featureName = document.getElementById("feature-name");
   featureName.innerHTML = feature.properties.name + "<br>"

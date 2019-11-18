@@ -8,7 +8,7 @@
     <script src="https://kit.fontawesome.com/3d13c74011.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Quicksand|Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
+    <!-- <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script> -->
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.5.0/mapbox-gl.js'></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
@@ -44,7 +44,8 @@
     </div>
     
     <script>
-        var isRouting = true;
+        var marker;
+        var isRouting = false;
         mapboxgl.accessToken = 'pk.eyJ1IjoiaGlldW10MjE5OCIsImEiOiJjazJiYXZvMnQwMXNsM2RvMmxhenB2czFnIn0.KB9F598mZYRxomAFtbzVjA';
         var map = new mapboxgl.Map({
             container: 'map',
@@ -52,13 +53,9 @@
             center: [105.781187, 21.036902],
             zoom: 7
         });
-        var directions = new MapboxDirections({
+        var directionsControl = new MapboxDirections({
             accessToken: mapboxgl.accessToken
         });
-        if(isRouting) {
-            map.addControl(directions, 'top-right');
-        }
-
         map.addControl(new mapboxgl.ScaleControl(), 'bottom-left');
         map.addControl(new mapboxgl.NavigationControl(), 'bottom-right');
         document.getElementById('detail-feature').style.display = "none";
