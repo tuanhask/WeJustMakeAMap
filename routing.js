@@ -6216,18 +6216,15 @@ function fetchDirections() {
 
     // Request params
     var options = [];
-    
-    
-    // if (congestion) options.push('annotations=congestion');
-    options.push('overview=full');
     options.push('geometries=polyline');
     // if (alternatives) options.push('alternatives=true');
-    options.push('steps=true');
-    
+    // if (congestion) options.push('annotations=congestion');
+    // options.push('steps=true');
+    // options.push('overview=full');
     // if (language) options.push('language=' + language);
     // if (accessToken) options.push('access_token=' + accessToken);
     request.abort();
-    request.open('GET', '' + api + profile + '/' + query + '?' + options.join('&'), true);
+    request.open('GET', '' + api + profile + '/' + query + '.json?' + options.join('&'), true);
 
     request.onload = function () {
       if (request.status >= 200 && request.status < 400) {
@@ -6283,7 +6280,7 @@ function buildDirectionsQuery(state) {
   }
 
   query.push(destination.geometry.coordinates.join(','));
-  return query.join('');
+  return encodeURIComponent(query.join(''));
 }
 
 function normalizeWaypoint(waypoint) {
@@ -6878,7 +6875,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
  // substack/brfs#39
-var tmpl = (0, _lodash2.default)("<div class='mapbox-directions-component mapbox-directions-inputs'>\n  <div class='mapbox-directions-component-keyline'>\n    <div class='mapbox-directions-origin'>\n      <label class='mapbox-form-label'>\n        <span class='directions-icon directions-icon-depart'></span>\n      </label>\n      <div id='mapbox-directions-origin-input'></div>\n    </div>\n\n    <button\n      class='directions-icon directions-icon-reverse directions-reverse js-reverse-inputs'\n      title='Reverse origin &amp; destination'>\n    </button>\n\n    <div class='mapbox-directions-destination'>\n      <label class='mapbox-form-label'>\n        <span class='directions-icon directions-icon-arrive'></span>\n      </label>\n      <div id='mapbox-directions-destination-input'></div>\n    </div>\n  </div>\n\n  <% if (controls.profileSwitcher) { %>\n  <div class='mapbox-directions-profile mapbox-directions-component-keyline mapbox-directions-clearfix'><input\n      id='mapbox-directions-profile-driving-traffic'\n      type='radio'\n      name='profile'\n      value='routed-car/route/v1/driving/'\n      <% if (profile === 'routed-car/route/v1/driving/') { %>checked<% } %>\n    />\n    <label for='mapbox-directions-profile-driving-traffic'>Traffic</label>\n    <input\n      id='mapbox-directions-profile-driving'\n      type='radio'\n      name='profile'\n      value='routed-car/route/v1/driving/'\n      <% if (profile === 'routed-car/route/v1/driving/') { %>checked<% } %>\n    />\n    <label for='mapbox-directions-profile-driving'>Driving</label>\n    <input\n      id='mapbox-directions-profile-walking'\n      type='radio'\n      name='profile'\n      value='routed-foot/route/v1/driving/'\n      <% if (profile === 'routed-foot/route/v1/driving/') { %>checked<% } %>\n    />\n    <label for='mapbox-directions-profile-walking'>Walking</label>\n    <input\n      id='mapbox-directions-profile-cycling'\n      type='radio'\n      name='profile'\n      value='routed-bike/route/v1/driving/'\n      <% if (profile === 'routed-bike/route/v1/driving/') { %>checked<% } %>\n    />\n    <label for='mapbox-directions-profile-cycling'>Cycling</label>\n  </div>\n  <% } %>\n</div>\n");
+var tmpl = (0, _lodash2.default)("<div class='mapbox-directions-component mapbox-directions-inputs'>\n  <div class='mapbox-directions-component-keyline'>\n    <div class='mapbox-directions-origin'>\n      <label class='mapbox-form-label'>\n        <span class='directions-icon directions-icon-depart'></span>\n      </label>\n      <div id='mapbox-directions-origin-input'></div>\n    </div>\n\n    <button\n      class='directions-icon directions-icon-reverse directions-reverse js-reverse-inputs'\n      title='Reverse origin &amp; destination'>\n    </button>\n\n    <div class='mapbox-directions-destination'>\n      <label class='mapbox-form-label'>\n        <span class='directions-icon directions-icon-arrive'></span>\n      </label>\n      <div id='mapbox-directions-destination-input'></div>\n    </div>\n  </div>\n\n  <% if (controls.profileSwitcher) { %>\n  <div class='mapbox-directions-profile mapbox-directions-component-keyline mapbox-directions-clearfix'><input\n      id='mapbox-directions-profile-driving-traffic'\n      type='radio'\n      name='profile'\n      value='driving'\n      <% if (profile === 'driving') { %>checked<% } %>\n    />\n    <label for='mapbox-directions-profile-driving-traffic'>Traffic</label>\n    <input\n      id='mapbox-directions-profile-driving'\n      type='radio'\n      name='profile'\n      value='driving'\n      <% if (profile === 'driving') { %>checked<% } %>\n    />\n    <label for='mapbox-directions-profile-driving'>Driving</label>\n    <input\n      id='mapbox-directions-profile-walking'\n      type='radio'\n      name='profile'\n      value='foot'\n      <% if (profile === 'foot') { %>checked<% } %>\n    />\n    <label for='mapbox-directions-profile-walking'>Walking</label>\n    <input\n      id='mapbox-directions-profile-cycling'\n      type='radio'\n      name='profile'\n      value='bike'\n      <% if (profile === 'bike') { %>checked<% } %>\n    />\n    <label for='mapbox-directions-profile-cycling'>Cycling</label>\n  </div>\n  <% } %>\n</div>\n");
 
 /**
  * Inputs controller
@@ -7288,7 +7285,6 @@ var MapboxDirections = function () {
     this.onDragUp = this._onDragUp.bind(this);
     this.move = this._move.bind(this);
     this.onClick = this._clickHandler().bind(this);
-    this._searchListener = options.searchListener;
   }
 
   _createClass(MapboxDirections, [{
@@ -7304,13 +7300,6 @@ var MapboxDirections = function () {
       var el = this.container = document.createElement('div');
       el.className = 'mapboxgl-ctrl-directions mapboxgl-ctrl';
 
-      // Add search button
-      var searchEl = document.createElement('button');
-      searchEl.className = 'search-button';
-      searchEl.addEventListener("click", function () {
-        _this._searchListener();
-      });
-
       // Add controls to the page
       var inputEl = document.createElement('div');
       inputEl.className = 'directions-control directions-control-inputs';
@@ -7324,7 +7313,6 @@ var MapboxDirections = function () {
         setRouteIndex: this.actions.setRouteIndex
       }, this._map);
 
-      el.appendChild(searchEl);
       if (controls.inputs) el.appendChild(inputEl);
       if (controls.instructions) el.appendChild(directionsEl);
 
@@ -8022,8 +8010,8 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 
 var initialState = {
   // Options set on initialization
-  api: 'https://routing.openstreetmap.de/',
-  profile: 'routed-car/route/v1/driving',
+  api: 'http://router.project-osrm.org/route/v1/',
+  profile: 'driving',
   alternatives: false,
   congestion: false,
   unit: 'imperial',

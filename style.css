@@ -1,225 +1,237 @@
+/* body {
+    padding: 0;
+    margin: 0;
+}
+.map-wrapper {
+    width: 100%;
+    height:100%;
+    position: fixed;
+}
+#map {
+    width: 100%;
+    height:100%;
+    position: relative;
+} */
+
 body {
-  font-family: 'Quicksand', Arial, Helvetica, sans-serif;
   margin: 0;
   padding: 0;
 }
 #map {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
+position: absolute;
+top: 0;
+bottom: 0;
+width: 100%;
 }
 .info {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background: rgba(255, 255, 255, 0.8);
-  margin: 0;
-  padding: 0 5px;
-  font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
-  font-size: 11px;
+position: absolute;
+bottom: 0;
+right: 0;
+background: rgba(255, 255, 255, 0.8);
+margin: 0;
+padding: 0 5px;
+font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+font-size: 11px;
 }
 .info a {
-  color: #0099d8;
+color: #0099d8;
 }
 .info a:visited {
-  color: #0099d8;
+color: #0099d8;
 }
 .mapboxgl-ctrl-group {
-  border-radius: 1px;
-  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0 rgba(0, 0, 0, 0.02);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0 rgba(0, 0, 0, 0.02);
+border-radius: 1px;
+-webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0 rgba(0, 0, 0, 0.02);
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0 rgba(0, 0, 0, 0.02);
 }
 /* -------------------------- */
 /* ---------- font ---------- */
 /* -------------------------- */
 .pelias-ctrl, .pelias-ctrl input {
-  font: 400 14px 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+font: 400 14px 'Roboto', 'Helvetica Neue', Arial, Helvetica, sans-serif;
 }
 /* ---------------------------- */
 /* ---------- marker ---------- */
 /* ---------------------------- */
 .marker-arrow {
-  width: 30px;
-  height: 30px;
-  border-radius: 50% 50% 50% 0;
-  background-color: #2999fd;
-  transform: rotate(-45deg);
-  margin: -36px 0 0 0;
+width: 30px;
+height: 30px;
+border-radius: 50% 50% 50% 0;
+background-color: #2999fd;
+transform: rotate(-45deg);
+margin: -36px 0 0 0;
 }
 .marker-arrow::after {
-  content: '';
-  width: 14px;
-  height: 14px;
-  margin: 8px 0 0 8px;
-  background-color: #fff;
-  position: absolute;
-  border-radius: 50%;
+content: '';
+width: 14px;
+height: 14px;
+margin: 8px 0 0 8px;
+background-color: #fff;
+position: absolute;
+border-radius: 50%;
 }
 .marker-pulse {
-  border-radius: 50%;
-  height: 14px;
-  width: 14px;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  margin: -4px 0 0 -7px;
-  transform: rotateX(55deg);
-  z-index: -2;
+border-radius: 50%;
+height: 14px;
+width: 14px;
+position: absolute;
+left: 50%;
+top: 50%;
+margin: -4px 0 0 -7px;
+transform: rotateX(55deg);
+z-index: -2;
 }
 .marker-pulse:after {
-  content: "";
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
-  position: absolute;
-  margin: -13px 0 0 -13px;
-  animation: pelias-ctrl-pulsate 1s ease-out;
-  animation-iteration-count: infinite;
-  opacity: 0;
-  box-shadow: 0 0 1px 2px #2999fd;
+content: "";
+border-radius: 50%;
+height: 40px;
+width: 40px;
+position: absolute;
+margin: -13px 0 0 -13px;
+animation: pelias-ctrl-pulsate 1s ease-out;
+animation-iteration-count: infinite;
+opacity: 0;
+box-shadow: 0 0 1px 2px #2999fd;
 }
 #info {
-  display: block;
-  position: relative;
-  margin: 0px auto;
-  width: 50%;
-  padding: 10px;
-  border: none;
-  border-radius: 3px;
-  font-size: 12px;
-  text-align: center;
-  color: #222;
-  background: #fff;
+display: block;
+position: relative;
+margin: 0px auto;
+width: 50%;
+padding: 10px;
+border: none;
+border-radius: 3px;
+font-size: 12px;
+text-align: center;
+color: #222;
+background: #fff;
 }
 #place{
-  z-index: 9998;
-  height: 72px;
-  min-height: 10px;
-  position: absolute;
-  width: 384px;
-  bottom: 10px;
-  left: calc(50% - 192px);
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
-  background: #fff;
-  border-radius: 5px;
-  box-sizing: border-box;
+z-index: 9998;
+height: 72px;
+min-height: 10px;
+position: absolute;
+width: 384px;
+bottom: 10px;
+left: calc(50% - 192px);
+box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+background: #fff;
+border-radius: 5px;
+box-sizing: border-box;
 }
 #place>.placeicon {
-  height: 64px;
-  width: 96px;
-  margin: 4px;
-  position: absolute;
-  background-size: 96px 64px;
-  overflow: hidden;
+height: 64px;
+width: 96px;
+margin: 4px;
+position: absolute;
+background-size: 96px 64px;
+overflow: hidden;
 }
 #place>.placename {
-  font-size: 12px;
-  line-height: 12px;
-  height: 48px;
-  padding: 12px;
-  font-weight: 700;
-  left: 100px;
-  position: absolute;
-  text-decoration: none;
+font-size: 12px;
+line-height: 12px;
+padding: 12px;
+font-weight: 700;
+left: 100px;
+position: absolute;
+text-decoration: none;
 }
+#place>.latlon{
+font-size: 12px;
+line-height: 12px;
+padding: 12px;
+font-weight: 700;
+left: 100px;
+position: absolute;
+text-decoration: none;
+}
+
 #placeclose{
   position:absolute;
   right: 5px;
-  bottom: 5px
-}
-@keyframes pelias-ctrl-pulsate {
-  0% {
-    transform: scale(0.1, 0.1);
-    opacity: 0;
+  /* bottom: 5px; */
+  top: 4px;background: none;
+  outline: none;border: none;
+  color: blue;cursor: pointer;
+  
+  font-weight: 300;
+  font-weight: bold;
+  text-transform: uppercase;
   }
-  50% {
-    opacity: 1;
-    filter: none;
-  }
-  100% {
-    transform: scale(1.2, 1.2);
-    opacity: 0;
-  }
-}
-
+ #placeclose:hover{
+   background:#f0e1df;
+ }
 #detail-feature {
-  background: white;
-  margin: 10px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 450px;
-  box-shadow: 5px 10px 18px #888888;
-  height: auto;
-  overflow: hidden;
-  color: gray;
-}
-
-.detail-feature-element {
-  display: block;
-  padding: 20px;
-}
-
-#feature-img {
-  background: url('fimg.jpg') no-repeat;
-  background-position: center center;
-  height: 150px;
-}
-
-#feature-name {
-  background: #0071bc;
-  color: white;
-  font-size: 20px;
-  justify-items: center;
-  padding-top: 30px;
-  padding-bottom: 30px;
+background: white;
+margin: 10px;
+position: absolute;
+top: 0;
+bottom: 0;
+width: 450px;
+box-shadow: 5px 10px 18px #888888;
+z-index: 2147483647;
+height: auto;
+overflow: hidden;
+color: gray;
 }
 
 #close-detail-button {
-  font-size: 20px;
-  margin: 10px ;
-  background-color: transparent;
-  border: none;
-  position: absolute;
-  color: white;
-  top: 0px;
-  right: 0px;
+font-size: 20px;
+margin: 10px ;
+background-color: transparent;
+border: none;
+position: absolute;
+color: white;
+top: 0px;
+right: 0px;
 }
 
-.border-top {
-  border-top: solid 1px lightgray;
+.detail-feature-element {
+display: block;
+padding: 20px;
 }
 
+#feature-img {
+background: url('chua-mot-cot.jpg') no-repeat;
+background-position: center center;
+height: 150px;
+}
+#feature-name {
+background: #0071bc;
+color: white;
+font-size: 20px;
+justify-items: center;
+padding-top: 30px;
+padding-bottom: 30px;
+}
 #feature-controls {
-  margin-top: 15px;
-  margin-bottom: 15px;
+margin-top: 15px;
+margin-bottom: 15px;
 }
 
 .feature-control {
-  color: gray;
-  float: left;
-  width: 150px;
-  font-size: 25px;
-  text-align: center;
-  vertical-align: middle;
+color: gray;
+float: left;
+width: 150px;
+font-size: 25px;
+text-align: center;
+vertical-align: middle;
 }
 
 .feature-type {
-  font-size: 15px;
+font-size: 15px;
 }
-
-.search-button {
-  border: 1px solid #eeeeef;
-  border-radius: 4px;
-  width: 42px;
-  height: 42px;
-  background-size: 60%;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48' viewBox='0 0 48 48'%3E%3Cpath d='M31 28h-1.59l-.55-.55C30.82 25.18 32 22.23 32 19c0-7.18-5.82-13-13-13S6 11.82 6 19s5.82 13 13 13c3.23 0 6.18-1.18 8.45-3.13l.55.55V31l10 9.98L40.98 38 31 28zm-12 0c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9z'/%3E%3C/svg%3E");
+@keyframes pelias-ctrl-pulsate {
+0% {
+  transform: scale(0.1, 0.1);
+  opacity: 0;
 }
-
-button {
-  background: white;
+50% {
+  opacity: 1;
+  filter: none;
+}
+100% {
+  transform: scale(1.2, 1.2);
+  opacity: 0;
+}
 }

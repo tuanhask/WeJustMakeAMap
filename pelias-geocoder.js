@@ -3,8 +3,8 @@
 // ---------------------------------------------
 
 function PeliasGeocoder(opts) {
-    opts = opts || {}
-
+    opts = opts || {};
+  
     this.opts = {};
     this.opts.placeholder = opts.placeholder || 'Search';
     this.opts.url = opts.url;
@@ -39,8 +39,6 @@ function PeliasGeocoder(opts) {
       }
     }
   
-    this._directionsListener = opts.directionsListener;
-
     this.markerLayerId = 'pelias-mapbox-gl-js-marker';
     this.polygonLayerId = 'pelias-mapbox-gl-js-polygon';
     this._removePolygon = this._removeSources.bind(this, this.opts.wof, this.polygonLayerId);
@@ -68,26 +66,19 @@ function PeliasGeocoder(opts) {
     this._inputEl = this._buildInputHTMLElement();
     this._iconCrossEl = this._buildIconCrossHTMLElement();
     this._iconSearchEl = this._buildIconSearchHTMLElement();
-    this._iconDirectionsEl = this._buildIconDirectionsHTMLElement();
     this._resultsListEl = this._buildResultsListHTMLElement();
   
     inputWrapperEl.appendChild(this._inputEl);
     inputWrapperEl.appendChild(this._iconCrossEl);
     inputActionsWrapperEl.appendChild(inputWrapperEl);
     inputActionsWrapperEl.appendChild(this._iconSearchEl);
-    inputActionsWrapperEl.appendChild(this._iconDirectionsEl);
     this._resultsEl.appendChild(this._resultsListEl);
     wrapperEl.appendChild(inputActionsWrapperEl);
     wrapperEl.appendChild(this._resultsEl);
-    this._wrapperEl = wrapperEl;
+  
     return wrapperEl;
   };
   
-  PeliasGeocoder.prototype.onRemove = function (map) {
-    this._clearAll();
-    this._wrapperEl.parentNode.removeChild(this._wrapperEl);
-  }
-
   PeliasGeocoder.prototype.getDefaultPosition = function () {
     return 'top-left'
   };
@@ -600,14 +591,5 @@ function PeliasGeocoder(opts) {
     this._removeMarkers();
     this._removePolygon();
   };
-
-  PeliasGeocoder.prototype._buildIconDirectionsHTMLElement = function () {
-    var self = this;
-    var iconDirectionsEl = this._createElement({type: "span", class: "pelias-ctrl-action-icon pelias-ctrl-action-icon-directions pelias-ctrl-disabled"});
-    iconDirectionsEl.addEventListener("click", function () {
-      self._directionsListener();
-    });
-    return iconDirectionsEl;
-  }
   
   if (typeof module !== 'undefined') { module.exports = PeliasGeocoder; }
